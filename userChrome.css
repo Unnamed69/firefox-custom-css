@@ -1,0 +1,67 @@
+/* Hide horizontal tabs at the top of the window */
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+  opacity: 0;
+  pointer-events: none;
+}
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+    visibility: collapse !important;
+}
+
+/* Hide top bar and move close, minimize, restore buttons to top left (MacOS Big Sur, Firefox 89+) */
+#titlebar {
+  appearance: none !important;
+  height: 8px;
+}
+
+#titlebar > #toolbar-menubar {
+  margin-top: 0px;
+}
+
+#TabsToolbar {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+#TabsToolbar > .titlebar-buttonbox-container {
+  display: block;
+  position: absolute;
+  top: 19px;
+  left: 0px;
+}
+
+/* Side tab */
+/* Auto-show/hide sidebar by mouseover (hover) */
+:root {
+    --thin-tab-width: 60px;
+    --wide-tab-width: 320px;
+}
+/*Collapse in default state and add transition*/
+#sidebar-box {
+  overflow: hidden;
+  min-width: var(--thin-tab-width) !important;
+  max-width: var(--thin-tab-width) !important;
+  width: var(--thin-tab-width) !important;
+  transition: all 250ms cubic-bezier(0.075, 0.820, 0.165, 1.000) 0.5s;
+  border-right: 1px solid #0c0c0d;
+  z-index: 2;
+}
+
+/*Expand to 260px on hover*/
+#sidebar-box:hover,
+#sidebar-box #sidebar {
+  min-width: var(--wide-tab-width) !important;
+  max-width: var(--wide-tab-width) !important;
+  width: var(--wide-tab-width) !important;
+  z-index: 1;
+
+  /* Negative right-margin to keep page from being pushed to the side. */
+  margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
+  z-index: 1;
+  opacity: 1 !important;
+  transition: all 250ms cubic-bezier(0.075, 0.820, 0.165, 1.000);
+}
+
+/* Hide the "Tree Style Tab" header at the top of the sidebar */
+#sidebar-box #sidebar-header {
+  display: none;
+}
